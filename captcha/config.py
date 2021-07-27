@@ -1,0 +1,6 @@
+DATA_DIR = "../src/captcha_images_v2"
+BATCH_SIZE = 48
+IMAGE_WIDTH = 300
+IMAGE_HEIGHT = 75
+EPOCHS = 1000
+DEVICE = "cuda"

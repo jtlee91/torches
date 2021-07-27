@@ -1,0 +1,46 @@
+digraph {
+	graph [size="12,12"]
+	node [align=left fontname=monospace fontsize=10 height=0.2 ranksep=0.1 shape=box style=filled]
+	2619917352832 [label="
+ (32, 484)" fillcolor=darkolivegreen1]
+	2619917402512 [label=ViewBackward]
+	2619917402608 -> 2619917402512
+	2619917402608 [label=AddBackward0]
+	2619917402272 -> 2619917402608
+	2619917402272 [label=CudnnConvolutionBackward]
+	2619917402704 -> 2619917402272
+	2619917402704 [label=MaxPool2DWithIndicesBackward]
+	2619917402848 -> 2619917402704
+	2619917402848 [label=AddBackward0]
+	2619917402944 -> 2619917402848
+	2619917402944 [label=CudnnConvolutionBackward]
+	2619917403088 -> 2619917402944
+	2619917351360 [label="conv1.weight
+ (8, 1, 3, 3)" fillcolor=lightblue]
+	2619917351360 -> 2619917403088
+	2619917403088 [label=AccumulateGrad]
+	2619917402896 -> 2619917402848
+	2619917402896 [label=ViewBackward]
+	2619917403136 -> 2619917402896
+	2619917351488 [label="conv1.bias
+ (8)" fillcolor=lightblue]
+	2619917351488 -> 2619917403136
+	2619917403136 [label=AccumulateGrad]
+	2619917402656 -> 2619917402272
+	2619917351616 [label="conv2.weight
+ (4, 8, 3, 3)" fillcolor=lightblue]
+	2619917351616 -> 2619917402656
+	2619917402656 [label=AccumulateGrad]
+	2619917402320 -> 2619917402608
+	2619917402320 [label=ViewBackward]
+	2619917402752 -> 2619917402320
+	2619917351744 [label="conv2.bias
+ (4)" fillcolor=lightblue]
+	2619917351744 -> 2619917402752
+	2619917402752 [label=AccumulateGrad]
+	2619917402512 -> 2619917352832
+	2619891833152 [label="
+ (32, 4, 11, 11)" fillcolor=darkolivegreen3]
+	2619917402608 -> 2619891833152
+	2619891833152 -> 2619917352832 [style=dotted]
+}
