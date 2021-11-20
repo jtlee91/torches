@@ -62,6 +62,21 @@ class SoftmaxLoss2(nn.Module):
         return loss
 
 
+class SoftmaxLoss3(nn.Module):
+    def __init__(self):
+        super(SoftmaxLoss3, self).__init__()
+
+    def forward(self, x, label):
+        one_hot_encoding = torch.zeros(x.shape[0], num_classes).to(device)
+        one_hot_encoding[range(x.shape[0]), label] = 1
+
+        to_softmax = torch.div(torch.exp(x), torch.sum(torch.exp(x), dim=1).unsqueeze(1))
+        cross_entropy = torch.sum(torch.multiply(one_hot_encoding, torch.log(to_softmax)), dim=1)
+        loss = -cross_entropy.mean()
+        return loss
+
+
+
 def train(model, dataloader, epochs, loss_fn, optimizer):
     model.train()
     num_correct = 0
@@ -117,11 +132,22 @@ test_dataset = torchvision.datasets.MNIST(root="data", train=False, transform=to
 test_dataloader = DataLoader(dataset=test_dataset, batch_size=batch_size, shuffle=False)
 
 model = EmbeddingNet().to(device)
-loss_fn = SoftmaxLoss().to(device)
-optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
+loss_fn = SoftmaxLoss2().to(device)
 
-train(model, train_dataloader, epochs, loss_fn, optimizer)
-test(model, test_dataloader)
+X = torch.randn(4, 10).to(device)
+label = torch.tensor([0, 1, 2, 3]).to(device)
+print(loss_fn(X, label))
+
+loss_fn2 = nn.CrossEntropyLoss()
+print(loss_fn2(X, label))
+
+loss_fn3 = SoftmaxLoss3().to(device)
+print(loss_fn3(X, label))
+
+
+# optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
+# train(model, train_dataloader, epochs, loss_fn, optimizer)
+# test(model, test_dataloader)
 
 # model = EmbeddingNet().to(device)
 # loss_fn = SoftmaxLoss2().to(device)
